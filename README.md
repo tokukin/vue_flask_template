@@ -1,0 +1,2 @@
+# vue_flask_template
+vue_flask_template
