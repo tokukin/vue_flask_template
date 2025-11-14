@@ -2,6 +2,20 @@
 import { ref, onMounted } from "vue";
 import { ElSelect, ElOption } from "element-plus";
 import DataService from "../services/DataService.js";
+import { useCounterStore } from "@/store/counter";
+
+const counter = useCounterStore();
+
+// 按钮点击事件：调用 Store 中的 increment 方法
+const handleIncrement = () => {
+  counter.increment(); // 直接调用 actions 中的方法
+};
+
+// 可选：添加重置功能（需在 Store 中新增 reset 方法）
+const handleReset = () => {
+  counter.reset();
+};
+
 // 在<script setup>中，不需要定义setup()函数// 直接编写逻辑即可，变量会自动暴露给模板
 // 初始化数据
 
@@ -83,6 +97,13 @@ const handleSelectChange = () => {
     <p v-if="Object.keys(item).length">获取到的用户信息：{{ item }}</p>
     <p v-else-if="selectedId">暂无用户信息</p>
   </div>
+  <hr />
+  <!-- 添加按钮，点击触发 increment 函数 -->
+  <button @click="handleIncrement">点击加 1</button>
+
+  <!-- 可选：添加一个重置按钮 -->
+  <button @click="handleReset" style="margin-left: 10px">重置计数</button>
+  <div>Current Count: {{ counter.count }}</div>
 </template>
 
 <style scoped>
