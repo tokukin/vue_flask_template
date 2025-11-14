@@ -20,16 +20,3 @@ def get_user():
         return jsonify({"code": 404, "message": "用户不存在"}), 404
     
     return jsonify({"code": 200, "data": user_data})
-
-@user_bp.route("/login", methods=["POST"])
-def user_login():
-    """用户登录接口：/api/user/login"""
-    login_data = request.get_json()  # 获取POST请求的JSON数据
-    username = login_data.get("username")
-    password = login_data.get("password")
-    
-    # 模拟登录校验（实际项目需对接数据库+加密校验）
-    if username == "admin" and password == "123456":
-        return jsonify({"code": 200, "message": "登录成功", "data": {"token": "fake-token-123"}})
-    else:
-        return jsonify({"code": 401, "message": "用户名或密码错误"}), 401
